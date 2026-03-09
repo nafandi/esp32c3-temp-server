@@ -25,14 +25,7 @@ pub async fn read_dht(mut dht: Dht11<Flex<'static>, Delay>) {
                 let mut guard = DHT_CACHE.lock().await;
                 *guard = Some(data);
             }
-            Err(_) => {
-                let data = Dht11Reading {
-                    humidity: 0,
-                    temperature: 0,
-                };
-                let mut guard = DHT_CACHE.lock().await;
-                *guard = Some(data);
-            }
+            Err(_) => (),
         };
         embassy_time::Timer::after_secs(5).await;
     }
