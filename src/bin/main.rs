@@ -280,10 +280,14 @@ pub async fn sensor_fetch() -> impl IntoResponse {
             humidity: v.humidity,
             temperature: v.temperature,
         })
+        .into_response()
+        .with_header("Access-Control-Allow-Origin", "*")
     } else {
         picoserve::response::Json(Sensor {
             humidity: 0,
             temperature: 0,
         })
+        .into_response()
+        .with_header("Access-Control-Allow-Origin", "*")
     }
 }
